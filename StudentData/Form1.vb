@@ -81,17 +81,34 @@ Public Class Form1
                     csvReader1.Close()
 
                 Next
-
+                con.Open()
                 For Each s As String In EmptyList
                     For Each dict As Dictionary(Of String, List(Of String)) In studentlist
                         For Each emp As KeyValuePair(Of String, List(Of String)) In dict
                             If emp.Key = s Then
-                                Console.WriteLine("{0},{1}", emp.Key, emp.Value(0))
+                                ' Console.WriteLine("{0},{1}", emp.Key, emp.Value(0))
+
+                                Dim command As SqlCommand = New SqlCommand($"select studentid from student where StudentName = '{emp.Value(0)}'", con)
+                                Dim rd As SqlDataReader = command.ExecuteReader()
+                                rd.Read()
+                                Dim studentID As Integer = rd("Studentid")
+                                rd.Close()
+
+                                Dim command1 As SqlCommand = New SqlCommand($"select subjectID from Subject where SubjectName = '{emp.Value(2)}'", con)
+                                Dim rd1 As SqlDataReader = command1.ExecuteReader()
+                                rd1.Read()
+                                Dim subjectID As Integer = rd1("subjectId")
+                                rd1.Close()
+
+
+                                Dim cmd As SqlCommand = New SqlCommand($" insert into studentmarks(subjectid,studentid,studentmark) values({subjectID},{studentID},{emp.Value(1)})", con)
+                                cmd.executenonquery()
 
                             End If
                         Next
                     Next
                 Next
+                con.Close()
                 'con.Open()
                 'Dim cmd As SqlCommand = New SqlCommand(" insert into Studentmarks(SubjectId,StudentId,StudentMark)")
 
@@ -110,12 +127,12 @@ Public Class Form1
                 MessageBox.Show($"Successfully processed student data csv total number of rows = {rowcount}")
 
                 'File move to processed folder
-                ' File.Move(unprocesspath, processpath)
+                File.Move(unprocesspath, processpath)
                 success = True
             End If
         Catch ex As Exception
             'Move to error folder
-            ' File.Move(unprocesspath, errorpath)
+            File.Move(unprocesspath, errorpath)
             MessageBox.Show(ex.Message)
             success = False
 
