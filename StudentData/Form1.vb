@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Data.SqlClient
+Imports System.IO
 Imports System.Net.WebRequestMethods
 Imports Microsoft.VisualBasic.FileIO
 Imports File = System.IO.File
@@ -6,9 +7,10 @@ Imports File = System.IO.File
 Public Class Form1
 
     Private Sub Btnstartprocess_Click(sender As Object, e As EventArgs) Handles Btnstartprocess.Click
-        Dim unprocesspath As String = "C:\Student Data\UnProcessed\StudentMarks.csv"
-        Dim processpath As String = "C:\Student Data\Processed\StudentMarks.csv"
-        Dim errorpath As String = "C:\Student Data\Error Copy StudentMarks.csv file into Unprocessed folder\StudentMarks.csv"
+        Dim con As SqlConnection = New SqlConnection("Data Source=NLTI155\SQLEXPRESS;Initial Catalog=Studentdata;Integrated Security=True")
+        Dim unprocesspath As String = "D:\StudentData\Unprocesssed\StudentMarks.csv"
+        Dim processpath As String = "D:\StudentData\Processed\StudentMarks.csv"
+        Dim errorpath As String = "D:\StudentData\ErrorFolder\StudentMarks.csv"
         Dim success As Boolean = False
         ' Dim filename As String
         Dim rowcount As Integer
@@ -19,7 +21,7 @@ Public Class Form1
         'Dim filepath As String = "C:\Student Data\UnProcessed\StudentMarks.csv"
 
 
-        Dim aList As New List(Of String)
+        Dim studentlist As New List(Of Dictionary(Of String, List(Of String)))
         'check folder is exist or not
         Try
 
@@ -27,37 +29,94 @@ Public Class Form1
                 MessageBox.Show("File is not available in Folder")
             Else
 
-                Dim csvReader As New TextFieldParser("C:\Student Data\UnProcessed\StudentMarks.csv")
+                Dim csvReader As New TextFieldParser("D:\StudentData\Unprocesssed\StudentMarks.csv")
                 csvReader.Delimiters = New String() {","}
                 csvReader.TextFieldType = FieldType.Delimited
 
                 rowcount = 0
-                Dim row As String = " "
-                Dim myDictionary As Dictionary(Of String, String())
+                Dim EmptyList As New List(Of String)
+                ' Dim row As String
+
                 While csvReader.EndOfData() = False
                     Dim fields = csvReader.ReadFields()
 
                     If fields(0) <> "StudentName" Then
-                        myDictionary.Add(fields(1), {fields(0), fields(2), fields(3)})
-                        aList.Add(myDictionary.ToString())
+                        If EmptyList.Contains(fields(1)) Then
+                            Dim s As String = "Hiiiii"
+                        Else
+                            EmptyList.Add(fields(1))
+                        End If
+                        'If myDictionary.ContainsKey("Key1") Then
+                        '    myDictionary.Add(fields(1), New List(Of String) From {fields(0), fields(2), fields(3)})
+                        '    'studentlist.Add(myDictionary.ToString())
+                        'End If
                     End If
 
+                    'If myDictionary.ContainsKey("key1") Then
+                    '    studentlist.Contains("value1")
+                    'End If
                     ' Console.WriteLine(String.Format("{0} - {1} - {2} - {3}", StudentName, StudentRollNumber, SubjectMarks, SubjectName))
 
-                    row = csvReader.ReadLine()
+
                     rowcount += 1
 
                 End While
                 csvReader.Close()
+
+
+                For Each S As String In EmptyList
+                    Dim csvReader1 As New TextFieldParser("D:\StudentData\Unprocesssed\StudentMarks.csv")
+                    csvReader1.Delimiters = New String() {","}
+                    csvReader1.TextFieldType = FieldType.Delimited
+                    While csvReader1.EndOfData() = False
+                        Dim fields = csvReader1.ReadFields()
+                        Dim myDictionary As New Dictionary(Of String, List(Of String))
+                        If fields(1) = S Then
+                            myDictionary.Add(fields(1), New List(Of String) From {fields(0), fields(2), fields(3)})
+                            studentlist.Add(myDictionary)
+                        End If
+
+
+                    End While
+                    csvReader1.Close()
+
+                Next
+
+                For Each s As String In EmptyList
+                    For Each dict As Dictionary(Of String, List(Of String)) In studentlist
+                        For Each emp As KeyValuePair(Of String, List(Of String)) In dict
+                            If emp.Key = s Then
+                                Console.WriteLine("{0},{1}", emp.Key, emp.Value(0))
+
+                            End If
+                        Next
+                    Next
+                Next
+                'con.Open()
+                'Dim cmd As SqlCommand = New SqlCommand(" insert into Studentmarks(SubjectId,StudentId,StudentMark)")
+
+                'cmd.ExecuteNonQuery()
+                'con.Close()
+                'For Each kvp As KeyValuePair(Of String, List(Of String)) In myDictionary
+                '    For Each item As String In studentlist
+                '        For Each it As String In item
+                '            If kvp.Key = item Then
+
+                '            End If
+                '        Next
+                '    Next
+                'Next
+                'csvReader.Close()
                 MessageBox.Show($"Successfully processed student data csv total number of rows = {rowcount}")
 
                 'File move to processed folder
-                File.Move(unprocesspath, processpath)
+                ' File.Move(unprocesspath, processpath)
                 success = True
             End If
         Catch ex As Exception
             'Move to error folder
-            File.Move(unprocesspath, errorpath)
+            ' File.Move(unprocesspath, errorpath)
+            MessageBox.Show(ex.Message)
             success = False
 
         End Try
