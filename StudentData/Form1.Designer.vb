@@ -23,22 +23,36 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Btnstartprocess = New Button()
+        btnsearchform = New Button()
         SuspendLayout()
         ' 
         ' Btnstartprocess
         ' 
-        Btnstartprocess.Location = New Point(320, 237)
+        Btnstartprocess.BackColor = SystemColors.Window
+        Btnstartprocess.Location = New Point(175, 167)
         Btnstartprocess.Name = "Btnstartprocess"
         Btnstartprocess.Size = New Size(113, 33)
         Btnstartprocess.TabIndex = 0
         Btnstartprocess.Text = "Start Processing"
-        Btnstartprocess.UseVisualStyleBackColor = True
+        Btnstartprocess.UseVisualStyleBackColor = False
+        ' 
+        ' btnsearchform
+        ' 
+        btnsearchform.BackColor = Color.Snow
+        btnsearchform.Location = New Point(467, 167)
+        btnsearchform.Name = "btnsearchform"
+        btnsearchform.Size = New Size(111, 33)
+        btnsearchform.TabIndex = 1
+        btnsearchform.Text = "Search"
+        btnsearchform.UseVisualStyleBackColor = False
         ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.MistyRose
         ClientSize = New Size(800, 450)
+        Controls.Add(btnsearchform)
         Controls.Add(Btnstartprocess)
         Name = "Form1"
         Text = "Form1"
@@ -46,4 +60,5 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents Btnstartprocess As Button
+    Friend WithEvents btnsearchform As Button
 End Class
