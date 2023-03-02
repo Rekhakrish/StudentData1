@@ -30,6 +30,7 @@ Partial Class SearchStudent
         TxtSubject = New TextBox()
         Btnsearch = New Button()
         DataGridView1 = New DataGridView()
+        BtnShowAll = New Button()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -46,7 +47,7 @@ Partial Class SearchStudent
         ' 
         LblStudentrollno.AutoSize = True
         LblStudentrollno.BackColor = Color.Snow
-        LblStudentrollno.Location = New Point(63, 119)
+        LblStudentrollno.Location = New Point(63, 98)
         LblStudentrollno.Name = "LblStudentrollno"
         LblStudentrollno.Size = New Size(90, 15)
         LblStudentrollno.TabIndex = 1
@@ -55,7 +56,7 @@ Partial Class SearchStudent
         ' 
         LblSubject.AutoSize = True
         LblSubject.BackColor = Color.Snow
-        LblSubject.Location = New Point(63, 181)
+        LblSubject.Location = New Point(63, 151)
         LblSubject.Name = "LblSubject"
         LblSubject.Size = New Size(46, 15)
         LblSubject.TabIndex = 2
@@ -69,21 +70,21 @@ Partial Class SearchStudent
         ' 
         ' TxtStudentrollno
         ' 
-        TxtStudentrollno.Location = New Point(256, 111)
+        TxtStudentrollno.Location = New Point(256, 90)
         TxtStudentrollno.Name = "TxtStudentrollno"
         TxtStudentrollno.Size = New Size(100, 23)
         TxtStudentrollno.TabIndex = 4
         ' 
         ' TxtSubject
         ' 
-        TxtSubject.Location = New Point(256, 173)
+        TxtSubject.Location = New Point(256, 143)
         TxtSubject.Name = "TxtSubject"
         TxtSubject.Size = New Size(100, 23)
         TxtSubject.TabIndex = 5
         ' 
         ' Btnsearch
         ' 
-        Btnsearch.Location = New Point(151, 234)
+        Btnsearch.Location = New Point(596, 45)
         Btnsearch.Name = "Btnsearch"
         Btnsearch.Size = New Size(81, 35)
         Btnsearch.TabIndex = 6
@@ -94,18 +95,28 @@ Partial Class SearchStudent
         ' 
         DataGridView1.BackgroundColor = Color.Snow
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(63, 304)
+        DataGridView1.Location = New Point(63, 223)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowTemplate.Height = 25
-        DataGridView1.Size = New Size(622, 150)
+        DataGridView1.Size = New Size(815, 325)
         DataGridView1.TabIndex = 7
+        ' 
+        ' BtnShowAll
+        ' 
+        BtnShowAll.Location = New Point(596, 126)
+        BtnShowAll.Name = "BtnShowAll"
+        BtnShowAll.Size = New Size(81, 31)
+        BtnShowAll.TabIndex = 8
+        BtnShowAll.Text = "ShowAll"
+        BtnShowAll.UseVisualStyleBackColor = True
         ' 
         ' SearchStudent
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.MistyRose
-        ClientSize = New Size(800, 477)
+        ClientSize = New Size(1259, 592)
+        Controls.Add(BtnShowAll)
         Controls.Add(DataGridView1)
         Controls.Add(Btnsearch)
         Controls.Add(TxtSubject)
@@ -115,7 +126,9 @@ Partial Class SearchStudent
         Controls.Add(LblStudentrollno)
         Controls.Add(LblStudentname)
         Name = "SearchStudent"
+        StartPosition = FormStartPosition.CenterParent
         Text = "SearchStudent"
+        WindowState = FormWindowState.Maximized
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -129,4 +142,5 @@ Partial Class SearchStudent
     Friend WithEvents TxtSubject As TextBox
     Friend WithEvents Btnsearch As Button
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents BtnShowAll As Button
 End Class

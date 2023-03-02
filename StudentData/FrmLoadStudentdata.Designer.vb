@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class FrmloadStudentdata
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -46,7 +46,7 @@ Partial Class Form1
         btnsearchform.Text = "Search"
         btnsearchform.UseVisualStyleBackColor = False
         ' 
-        ' Form1
+        ' FrmloadStudentdata
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
@@ -54,8 +54,10 @@ Partial Class Form1
         ClientSize = New Size(800, 450)
         Controls.Add(btnsearchform)
         Controls.Add(Btnstartprocess)
-        Name = "Form1"
-        Text = "Form1"
+        Name = "FrmloadStudentdata"
+        StartPosition = FormStartPosition.CenterParent
+        Text = "Load StudentData"
+        WindowState = FormWindowState.Maximized
         ResumeLayout(False)
     End Sub
 
