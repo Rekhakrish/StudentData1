@@ -51,6 +51,7 @@ Partial Class FrmloadStudentdata
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.MistyRose
+        BackgroundImageLayout = ImageLayout.None
         ClientSize = New Size(800, 450)
         Controls.Add(btnsearchform)
         Controls.Add(Btnstartprocess)

@@ -81,10 +81,17 @@ Public Class SearchStudent
 
             Dim frmedit As Edit = New Edit()
             frmedit.studentobject.id = DataGridView1.Rows(e.RowIndex).Cells(4).Value
-            frmedit.Show()
+            frmedit.studentobject.Name = DataGridView1.Rows(e.RowIndex).Cells(0).Value
+            frmedit.studentobject.subject = DataGridView1.Rows(e.RowIndex).Cells(2).Value
+            frmedit.studentobject.marks = DataGridView1.Rows(e.RowIndex).Cells(3).Value
+            frmedit.ShowDialog()
             DataGridView1.Rows(e.RowIndex).Cells(3).Value = frmedit.studentobject.marks
 
-            '  Dim command1 As New SqlCommand("Update Studentmarks Set Studentmark=txtMarks.text where Id=" +id.toString())
+            Dim id As Integer = DataGridView1.Rows(e.RowIndex).Cells(4).Value
+            Dim command As New SqlCommand(" Update Studentmarks  set studentmark=" + frmedit.studentobject.marks.ToString() + " where Id=" + id.ToString(), connection)
+            connection.Open()
+            command.ExecuteNonQuery()
+            connection.Close()
 
 
         ElseIf e.ColumnIndex = 6 Then
