@@ -45,25 +45,28 @@ Partial Class Edit
         ' Label1
         ' 
         Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label1.Location = New Point(121, 109)
         Label1.Name = "Label1"
-        Label1.Size = New Size(18, 15)
+        Label1.Size = New Size(22, 17)
         Label1.TabIndex = 1
         Label1.Text = "ID"' 
         ' Label2
         ' 
         Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label2.Location = New Point(121, 157)
         Label2.Name = "Label2"
-        Label2.Size = New Size(80, 15)
+        Label2.Size = New Size(92, 17)
         Label2.TabIndex = 2
         Label2.Text = "StudentName"' 
         ' Label3
         ' 
         Label3.AutoSize = True
+        Label3.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label3.Location = New Point(121, 196)
         Label3.Name = "Label3"
-        Label3.Size = New Size(46, 15)
+        Label3.Size = New Size(53, 17)
         Label3.TabIndex = 3
         Label3.Text = "Subject"' 
         ' TxtSubject
@@ -92,25 +95,28 @@ Partial Class Edit
         ' Label4
         ' 
         Label4.AutoSize = True
+        Label4.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         Label4.Location = New Point(121, 252)
         Label4.Name = "Label4"
-        Label4.Size = New Size(76, 15)
+        Label4.Size = New Size(88, 17)
         Label4.TabIndex = 7
         Label4.Text = "Subject Mark"' 
         ' ButtonSave
         ' 
+        ButtonSave.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point)
         ButtonSave.Location = New Point(160, 318)
         ButtonSave.Name = "ButtonSave"
-        ButtonSave.Size = New Size(75, 23)
+        ButtonSave.Size = New Size(75, 30)
         ButtonSave.TabIndex = 8
         ButtonSave.Text = "Save"
         ButtonSave.UseVisualStyleBackColor = True
         ' 
         ' ButtonClose
         ' 
+        ButtonClose.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point)
         ButtonClose.Location = New Point(308, 318)
         ButtonClose.Name = "ButtonClose"
-        ButtonClose.Size = New Size(75, 23)
+        ButtonClose.Size = New Size(75, 30)
         ButtonClose.TabIndex = 9
         ButtonClose.Text = "Close"
         ButtonClose.UseVisualStyleBackColor = True
@@ -119,6 +125,7 @@ Partial Class Edit
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.MistyRose
         ClientSize = New Size(800, 450)
         Controls.Add(ButtonClose)
         Controls.Add(ButtonSave)

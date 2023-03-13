@@ -1,8 +1,10 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Configuration
+Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Net.WebRequestMethods
 Imports Microsoft.VisualBasic.FileIO
 Imports File = System.IO.File
+
 
 Public Class FrmloadStudentdata
 
@@ -19,18 +21,28 @@ Public Class FrmloadStudentdata
 
     Private Sub Btnstartprocess_Click_1(sender As Object, e As EventArgs) Handles Btnstartprocess.Click
         'Connection For database
-        Dim con As SqlConnection = New SqlConnection("Data Source=NLTI155\SQLEXPRESS;Initial Catalog=Studentdata;Integrated Security=True")
+        Dim con As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("StudentDATABASE").ConnectionString)
 
         'Path for threee folserd in D drive
-        Dim unprocesspath As String = "D:\StudentData\Unprocesssed\StudentMarks.csv"
-        Dim processpath As String = "D:\StudentData\Processed\StudentMarks.csv"
-        Dim errorpath As String = "D:\StudentData\ErrorFolder\StudentMarks.csv"
+        Dim unprocesspath As String = ConfigurationManager.AppSettings("Unprocessed")
+        Dim processpath As String = ConfigurationManager.AppSettings("Processed")
+        Dim errorpath As String = ConfigurationManager.AppSettings("Error")
+        Dim fileName As String = System.IO.Path.GetFileNameWithoutExtension(unprocesspath)
+
+        Dim fileExt As String = System.IO.Path.GetExtension(unprocesspath)
+        Dim currentDate As String = DateTime.Now.ToString("(ss/mm/H)+(d/M/yyyy)")
+
         Dim success As Boolean = False
         Dim rowcount As Integer
 
 
         'creating a list for Dictionary
         Dim studentlist As New List(Of Dictionary(Of String, List(Of String)))
+
+
+
+        'Emptylist created for unique value in key
+        Dim StudentEmptyList As New List(Of String)
 
         'check folder is exist or not
         Try
@@ -40,25 +52,25 @@ Public Class FrmloadStudentdata
                 Return
                 'IF exist  read the data in CSV
             Else
-                Dim csvReader As New TextFieldParser("D:\StudentData\Unprocesssed\StudentMarks.csv")
+                Dim csvReader As New TextFieldParser(unprocesspath)
                 csvReader.Delimiters = New String() {","}
                 csvReader.TextFieldType = FieldType.Delimited
 
                 rowcount = 0
 
-                'Emptylist created for unique value in key
-                Dim StudentEmptyList As New List(Of String)
-
 
                 While csvReader.EndOfData() = False
                     Dim fields = csvReader.ReadFields()
+                    Dim studentName As String = fields(0)
+                    Dim studentRollNo As String = fields(1)
 
-                    If fields(0) <> "StudentName" Then
-                        If StudentEmptyList.Contains(fields(1)) Then
+
+                    If studentName <> "StudentName" Then
+                        If StudentEmptyList.Contains(studentRollNo) Then
                             Dim countpurpose As String = "check count"
 
                         Else
-                            StudentEmptyList.Add(fields(1))
+                            StudentEmptyList.Add(studentRollNo)
                         End If
 
                     End If
@@ -69,17 +81,20 @@ Public Class FrmloadStudentdata
                 csvReader.Close()
 
                 'While Reading CSV File split and read field by field 
-                For Each S As String In StudentEmptyList
-                    Dim csvReader1 As New TextFieldParser("D:\StudentData\Unprocesssed\StudentMarks.csv")
+                For Each list As String In StudentEmptyList
+                    Dim csvReader1 As New TextFieldParser(unprocesspath)
                     csvReader1.Delimiters = New String() {","}
                     csvReader1.TextFieldType = FieldType.Delimited
                     While csvReader1.EndOfData() = False
                         Dim fields = csvReader1.ReadFields()
-
+                        Dim studentName As String = fields(0)
+                        Dim studentRollNo As String = fields(1)
+                        Dim subjectMarks As String = fields(2)
+                        Dim subjectName As String = fields(3)
                         'Creating Dictionary for get key and values
                         Dim myDictionary As New Dictionary(Of String, List(Of String))
-                        If fields(1) = S Then
-                            myDictionary.Add(fields(1), New List(Of String) From {fields(0), fields(2), fields(3)})
+                        If studentRollNo = list Then
+                            myDictionary.Add(studentRollNo, New List(Of String) From {studentName, subjectMarks, subjectName})
                             studentlist.Add(myDictionary)
                         End If
 
@@ -114,14 +129,12 @@ Public Class FrmloadStudentdata
                                 If studentID <= 0 Or subjectID <= 0 Then
                                     MessageBox.Show("File is having the invalid data,Moving the datafile to error Folder")
                                     If File.Exists(errorpath) Then
-                                        File.Delete(errorpath)
+
                                     End If
-                                    File.Move(unprocesspath, errorpath)
+                                    File.Move(unprocesspath, errorpath + fileName + currentDate + fileExt)
                                     isfilehaserror = True
                                     GoTo endofcode
-                                    'Else
-                                    '    Dim cmd As SqlCommand = New SqlCommand($" insert into studentmarks(subjectid,studentid,studentmark) values({subjectID},{studentID},{Studentkeyvalue.Value(1)})", con)
-                                    '    cmd.ExecuteNonQuery()
+
 
                                 End If
 
@@ -167,23 +180,23 @@ endofcode:
                     MessageBox.Show($"Successfully processed student data csv total number of rows = {rowcount}")
                     ' File Move to processed folder
                     If File.Exists(processpath) Then
-                        File.Delete(processpath)
-                    End If
 
-                    File.Move(unprocesspath, processpath)
+                    End If
+                    File.Move(unprocesspath, processpath + fileName + currentDate + fileExt)
                     success = True
                 Else
                     MessageBox.Show($"Row count is :{rowcount} - Row Count should not be zero")
+                    'File Move to Error Path
                     If File.Exists(errorpath) Then
-                        File.Delete(errorpath)
+
                     End If
-                    File.Move(unprocesspath, errorpath)
+                    File.Move(unprocesspath, errorpath + fileName + currentDate + fileExt)
 
                 End If
             End If
 
         Catch ex As Exception
-            'Move to error folder
+            'If any error while processing it will throw error message
 
             MessageBox.Show(ex.Message)
             success = False
@@ -194,9 +207,8 @@ endofcode:
 
         'Show message
         If success Then
-            MessageBox.Show("Successfully Processed :" & rowcount & " Rows  ")
-            'Else
-            '    MessageBox.Show("Error")
+            MessageBox.Show("Successfully Processed :" & StudentEmptyList.count & " Rows  ")
+
         End If
     End Sub
 End Class

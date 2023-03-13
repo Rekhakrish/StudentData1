@@ -23,28 +23,18 @@ Partial Class FrmloadStudentdata
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Btnstartprocess = New Button()
-        btnsearchform = New Button()
         SuspendLayout()
         ' 
         ' Btnstartprocess
         ' 
         Btnstartprocess.BackColor = SystemColors.Window
-        Btnstartprocess.Location = New Point(175, 167)
+        Btnstartprocess.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        Btnstartprocess.Location = New Point(308, 189)
         Btnstartprocess.Name = "Btnstartprocess"
-        Btnstartprocess.Size = New Size(113, 33)
+        Btnstartprocess.Size = New Size(141, 63)
         Btnstartprocess.TabIndex = 0
         Btnstartprocess.Text = "Start Processing"
         Btnstartprocess.UseVisualStyleBackColor = False
-        ' 
-        ' btnsearchform
-        ' 
-        btnsearchform.BackColor = Color.Snow
-        btnsearchform.Location = New Point(467, 167)
-        btnsearchform.Name = "btnsearchform"
-        btnsearchform.Size = New Size(111, 33)
-        btnsearchform.TabIndex = 1
-        btnsearchform.Text = "Search"
-        btnsearchform.UseVisualStyleBackColor = False
         ' 
         ' FrmloadStudentdata
         ' 
@@ -52,8 +42,7 @@ Partial Class FrmloadStudentdata
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.MistyRose
         BackgroundImageLayout = ImageLayout.None
-        ClientSize = New Size(800, 450)
-        Controls.Add(btnsearchform)
+        ClientSize = New Size(767, 431)
         Controls.Add(Btnstartprocess)
         Name = "FrmloadStudentdata"
         StartPosition = FormStartPosition.CenterParent
@@ -63,5 +52,4 @@ Partial Class FrmloadStudentdata
     End Sub
 
     Friend WithEvents Btnstartprocess As Button
-    Friend WithEvents btnsearchform As Button
 End Class

@@ -19,6 +19,9 @@
 
     Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
         studentobject.marks = TxtMark.Text
+
         MessageBox.Show("Data saved")
+
+
     End Sub
 End Class

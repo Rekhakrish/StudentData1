@@ -31,6 +31,8 @@ Partial Class SearchStudent
         Btnsearch = New Button()
         DataGridView1 = New DataGridView()
         BtnShowAll = New Button()
+        ButtonNextgrid = New Button()
+        ButtonPrevious = New Button()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -38,27 +40,30 @@ Partial Class SearchStudent
         ' 
         LblStudentname.AutoSize = True
         LblStudentname.BackColor = Color.Snow
+        LblStudentname.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblStudentname.Location = New Point(63, 53)
         LblStudentname.Name = "LblStudentname"
-        LblStudentname.Size = New Size(83, 15)
+        LblStudentname.Size = New Size(96, 17)
         LblStudentname.TabIndex = 0
         LblStudentname.Text = "Student Name"' 
         ' LblStudentrollno
         ' 
         LblStudentrollno.AutoSize = True
         LblStudentrollno.BackColor = Color.Snow
+        LblStudentrollno.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblStudentrollno.Location = New Point(63, 98)
         LblStudentrollno.Name = "LblStudentrollno"
-        LblStudentrollno.Size = New Size(90, 15)
+        LblStudentrollno.Size = New Size(106, 17)
         LblStudentrollno.TabIndex = 1
         LblStudentrollno.Text = "Student Roll No"' 
         ' LblSubject
         ' 
         LblSubject.AutoSize = True
         LblSubject.BackColor = Color.Snow
+        LblSubject.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
         LblSubject.Location = New Point(63, 151)
         LblSubject.Name = "LblSubject"
-        LblSubject.Size = New Size(46, 15)
+        LblSubject.Size = New Size(53, 17)
         LblSubject.TabIndex = 2
         LblSubject.Text = "Subject"' 
         ' TxtStudentName
@@ -84,12 +89,14 @@ Partial Class SearchStudent
         ' 
         ' Btnsearch
         ' 
-        Btnsearch.Location = New Point(596, 45)
+        Btnsearch.BackColor = Color.Snow
+        Btnsearch.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        Btnsearch.Location = New Point(483, 35)
         Btnsearch.Name = "Btnsearch"
         Btnsearch.Size = New Size(81, 35)
         Btnsearch.TabIndex = 6
         Btnsearch.Text = "Search"
-        Btnsearch.UseVisualStyleBackColor = True
+        Btnsearch.UseVisualStyleBackColor = False
         ' 
         ' DataGridView1
         ' 
@@ -103,12 +110,36 @@ Partial Class SearchStudent
         ' 
         ' BtnShowAll
         ' 
-        BtnShowAll.Location = New Point(596, 126)
+        BtnShowAll.BackColor = Color.Snow
+        BtnShowAll.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        BtnShowAll.Location = New Point(483, 98)
         BtnShowAll.Name = "BtnShowAll"
         BtnShowAll.Size = New Size(81, 31)
         BtnShowAll.TabIndex = 8
         BtnShowAll.Text = "ShowAll"
-        BtnShowAll.UseVisualStyleBackColor = True
+        BtnShowAll.UseVisualStyleBackColor = False
+        ' 
+        ' ButtonNextgrid
+        ' 
+        ButtonNextgrid.BackColor = Color.Snow
+        ButtonNextgrid.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        ButtonNextgrid.Location = New Point(667, 35)
+        ButtonNextgrid.Name = "ButtonNextgrid"
+        ButtonNextgrid.Size = New Size(75, 35)
+        ButtonNextgrid.TabIndex = 9
+        ButtonNextgrid.Text = ">>"
+        ButtonNextgrid.UseVisualStyleBackColor = False
+        ' 
+        ' ButtonPrevious
+        ' 
+        ButtonPrevious.BackColor = Color.Snow
+        ButtonPrevious.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point)
+        ButtonPrevious.Location = New Point(667, 98)
+        ButtonPrevious.Name = "ButtonPrevious"
+        ButtonPrevious.Size = New Size(75, 31)
+        ButtonPrevious.TabIndex = 10
+        ButtonPrevious.Text = "<<"
+        ButtonPrevious.UseVisualStyleBackColor = False
         ' 
         ' SearchStudent
         ' 
@@ -116,6 +147,8 @@ Partial Class SearchStudent
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.MistyRose
         ClientSize = New Size(1259, 592)
+        Controls.Add(ButtonPrevious)
+        Controls.Add(ButtonNextgrid)
         Controls.Add(BtnShowAll)
         Controls.Add(DataGridView1)
         Controls.Add(Btnsearch)
@@ -143,4 +176,6 @@ Partial Class SearchStudent
     Friend WithEvents Btnsearch As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents BtnShowAll As Button
+    Friend WithEvents ButtonNextgrid As Button
+    Friend WithEvents ButtonPrevious As Button
 End Class

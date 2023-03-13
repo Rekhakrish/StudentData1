@@ -47,12 +47,12 @@ Partial Class Frmmain
         ' LoadDataToolStripMenuItem
         ' 
         LoadDataToolStripMenuItem.Name = "LoadDataToolStripMenuItem"
-        LoadDataToolStripMenuItem.Size = New Size(180, 22)
+        LoadDataToolStripMenuItem.Size = New Size(144, 22)
         LoadDataToolStripMenuItem.Text = "LoadData"' 
         ' SearchScreenToolStripMenuItem
         ' 
         SearchScreenToolStripMenuItem.Name = "SearchScreenToolStripMenuItem"
-        SearchScreenToolStripMenuItem.Size = New Size(180, 22)
+        SearchScreenToolStripMenuItem.Size = New Size(144, 22)
         SearchScreenToolStripMenuItem.Text = "SearchScreen"' 
         ' ExitToolStripMenuItem
         ' 
@@ -63,6 +63,7 @@ Partial Class Frmmain
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.Snow
         ClientSize = New Size(800, 450)
         Controls.Add(MenuStrip1)
         IsMdiContainer = True
