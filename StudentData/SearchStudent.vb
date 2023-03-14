@@ -30,53 +30,75 @@ Public Class SearchStudent
     Private Sub Btnsearch_Click_1(sender As Object, e As EventArgs) Handles Btnsearch.Click
 
         'Get user input
-
+        DataGridView1.DataSource = Nothing
+        DataGridView1.Rows.Clear()
+        DataGridView1.Columns.Clear()
         Dim studentName As String = TxtStudentName.Text
         Dim studentRollNo As String = TxtStudentrollno.Text
         Dim subject As String = TxtSubject.Text
 
 
-        If studentName = TxtStudentName.Text Then
+        If studentName <> Nothing And studentRollNo = Nothing And subject = Nothing Then
 
-            Dim command1 As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where Studentname='" & studentName & "'", connection)
-        End If
-        If studentRollNo = TxtStudentrollno.Text Then
+            Dim command As New SqlCommand(" SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where Studentname='" & studentName & "' ", connection)
+            Dim dataAdapter As New SqlDataAdapter(command)
+            Dim dt1 As New DataTable
+            dataAdapter.Fill(dt1)
+            DataGridView1.DataSource = dt1
+        ElseIf studentRollNo <> Nothing And studentName = Nothing And subject = Nothing Then
 
-            Dim command1 As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where studentRollNo='" & studentRollNo & "'", connection)
-        End If
-        If subject = TxtSubject.Text Then
-            Dim command1 As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where SubjectName='" & subject & "'", connection)
-        End If
-        If studentName = TxtStudentName.Text And subject = TxtSubject.Text Then
-            Dim command1 As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where Studentname='" & studentName & "' And SubjectName ='" & subject & "'", connection)
-        End If
-        If studentRollNo = TxtStudentrollno.Text And subject = TxtSubject.Text Then
-            Dim command1 As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where studentRollNo='" & studentRollNo & "' And SubjectName ='" & subject & "'", connection)
-        Else
+            Dim command As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where studentRollNo='" & studentRollNo & "'", connection)
+            Dim dataAdapter As New SqlDataAdapter(command)
+            Dim dt1 As New DataTable
+            dataAdapter.Fill(dt1)
+            DataGridView1.DataSource = dt1
+        ElseIf subject <> Nothing And studentRollNo = Nothing And studentName = Nothing Then
+            Dim command As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where SubjectName='" & subject & "'", connection)
+            Dim dataAdapter As New SqlDataAdapter(command)
+            Dim dt1 As New DataTable
+            dataAdapter.Fill(dt1)
+            DataGridView1.DataSource = dt1
+        ElseIf studentName <> Nothing And subject <> Nothing And studentRollNo = Nothing Then
+            Dim command As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where Studentname='" & studentName & "' And SubjectName ='" & subject & "'", connection)
+            Dim dataAdapter As New SqlDataAdapter(command)
+            Dim dt1 As New DataTable
+            dataAdapter.Fill(dt1)
+            DataGridView1.DataSource = dt1
+        ElseIf studentRollNo <> Nothing And subject <> Nothing And studentName = Nothing Then
+            Dim command As New SqlCommand("SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where studentRollNo='" & studentRollNo & "' And SubjectName ='" & subject & "'", connection)
+            Dim dataAdapter As New SqlDataAdapter(command)
+            Dim dt1 As New DataTable
+            dataAdapter.Fill(dt1)
+            DataGridView1.DataSource = dt1
+        ElseIf studentRollNo <> Nothing And subject <> Nothing And studentName <> Nothing Then
             'Query for search in database
+
             Dim command As New SqlCommand(" SELECT s.studentname, s.studentrollno, su.subjectname, m.studentmark,m.Id FROM student s INNER JOIN Studentmarks m ON s.studentid = m.studentid INNER JOIN subject su ON m.subjectid = su.subjectid where Studentname='" & studentName & "' And studentRollNo = '" & studentRollNo & "' And SubjectName='" & subject & "'", connection)
             Dim dataAdapter As New SqlDataAdapter(command)
             Dim dt1 As New DataTable
             dataAdapter.Fill(dt1)
             DataGridView1.DataSource = dt1
-            'DataGridView1.DataSource = Nothing
-            'DataGridView1.Rows.Clear()
-            'DataGridView1.Columns.Clear()
+        ElseIf studentRollNo = Nothing AndAlso subject = Nothing AndAlso studentName = Nothing Then
+            DataGridView1.DataSource = Nothing
+
+            MessageBox.Show("Textbox Should not be Empty")
 
         End If
-        ''create edit and delete button
-        'Dim dgcolEditButton As DataGridViewButtonColumn = New DataGridViewButtonColumn()
-        'dgcolEditButton.HeaderText = "Option Edit"
-        'dgcolEditButton.Name = "Edit"
-        'DataGridView1.Columns.Add(dgcolEditButton)
-        'Dim dgcoldeletebutton As DataGridViewButtonColumn = New DataGridViewButtonColumn()
-        'dgcoldeletebutton.HeaderText = "Option Delete"
-        'dgcolEditButton.Name = "Delete"
-        'DataGridView1.Columns.Add(dgcoldeletebutton)
-        'For Each datagridrow As DataGridViewRow In DataGridView1.Rows
-        '    datagridrow.Cells(5).Value = "Edit"
-        '    datagridrow.Cells(6).Value = "Delete"
-        'Next
+
+
+        'create edit and delete button
+        Dim dgcoleditbutton As DataGridViewButtonColumn = New DataGridViewButtonColumn()
+        dgcoleditbutton.HeaderText = "option edit"
+        dgcoleditbutton.Name = "edit"
+        DataGridView1.Columns.Add(dgcoleditbutton)
+        Dim dgcoldeletebutton As DataGridViewButtonColumn = New DataGridViewButtonColumn()
+        dgcoldeletebutton.HeaderText = "option delete"
+        dgcoleditbutton.Name = "delete"
+        DataGridView1.Columns.Add(dgcoldeletebutton)
+        For Each datagridrow As DataGridViewRow In DataGridView1.Rows
+            datagridrow.Cells(5).Value = "edit"
+            datagridrow.Cells(6).Value = "delete"
+        Next
 
     End Sub
 
